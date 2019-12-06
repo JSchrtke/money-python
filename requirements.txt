@@ -1,0 +1,20 @@
+appdirs==1.4.3
+atomicwrites==1.3.0
+attrs==19.3.0
+black==19.10b0
+Click==7.0
+colorama==0.4.1
+# Editable Git install with no remote (money==0.0.1)
+-e c:\users\js\desktop\ausbildung\projects\tdd_by_example\money-python
+more-itertools==8.0.2
+packaging==19.2
+pathspec==0.6.0
+pluggy==0.13.1
+py==1.8.0
+pyparsing==2.4.5
+pytest==5.3.1
+regex==2019.11.1
+six==1.13.0
+toml==0.10.0
+typed-ast==1.4.0
+wcwidth==0.1.7
