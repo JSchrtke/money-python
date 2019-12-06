@@ -5,7 +5,7 @@ black==19.10b0
 Click==7.0
 colorama==0.4.1
 importlib-metadata==1.2.0
-money==0.0.1
+-e git+git@github.com:JSchrtke/money-python.git@a8286e3ad0f739355a50c345242989752f141276#egg=money
 more-itertools==8.0.2
 packaging==19.2
 pathspec==0.6.0
