@@ -9,6 +9,7 @@ verify_ssl = true
 pytest = "*"
 black = "*"
 money = {editable = true,path = "."}
+mypy = "*"
 
 [requires]
 python_version = "3.8"
