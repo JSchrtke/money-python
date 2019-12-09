@@ -20,11 +20,13 @@ class Expression(ABC):
 
 class Money(Expression):
     def __init__(self, amount: int, currency: str) -> None:
-        self._amount: int = amount
-        self.currency: str = currency
+        self._amount = amount
+        self.currency = currency
 
-    def __eq__(self, money: Money) -> bool:
-        return self._amount == money._amount and self.currency == money.currency
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Money):
+            return NotImplemented
+        return self._amount == other._amount and self.currency == other.currency
 
     def __mul__(self, multiplier: int) -> Expression:
         return Money(self._amount * multiplier, self.currency)
@@ -33,7 +35,7 @@ class Money(Expression):
         return Sum(self, addend)
 
     def reduce(self, bank: Bank, target_currrency: str) -> Money:
-        rate: int = bank.rate(self.currency, target_currrency)
+        rate = bank.rate(self.currency, target_currrency)
         return Money(self._amount // rate, target_currrency)
 
     @staticmethod
@@ -47,13 +49,13 @@ class Money(Expression):
 
 class Sum(Expression):
     def __init__(self, augend: Expression, addend: Expression):
-        self.augend: Expression = augend
-        self.addend: Expression = addend
+        self.augend = augend
+        self.addend = addend
 
     def reduce(self, bank: Bank, target_currency: str) -> Money:
-        reduced_augend: Money = self.augend.reduce(bank, target_currency)
-        reduced_addend: Money = self.addend.reduce(bank, target_currency)
-        amount: int = reduced_augend._amount + reduced_addend._amount
+        reduced_augend = self.augend.reduce(bank, target_currency)
+        reduced_addend = self.addend.reduce(bank, target_currency)
+        amount = reduced_augend._amount + reduced_addend._amount
         return Money(amount, target_currency)
 
     def __add__(self, addend: Expression) -> Expression:
@@ -68,7 +70,7 @@ class Bank:
         self.__rates: Dict = {}
 
     def add_rate(self, from_currency: str, to_currency: str, rate: int) -> None:
-        new_rate: Dict = {(from_currency, to_currency): rate}
+        new_rate = {(from_currency, to_currency): rate}
         self.__rates.update(new_rate)
 
     def reduce(self, source: Expression, target_currency: str) -> Money:
